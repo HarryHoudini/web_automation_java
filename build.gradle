@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.inadequate.test'
+group 'com.inadequate'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -11,10 +11,16 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 test {
+    systemProperty 'environment', System.getProperty('environment')
     useTestNG()
 }
 
 dependencies {
-    testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
+    testCompile group: 'org.testng', name: 'testng', version: '6.10'
+    testCompile 'com.codeborne:selenide:5.1.0'
 }
