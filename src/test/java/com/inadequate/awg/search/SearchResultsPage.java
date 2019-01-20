@@ -8,15 +8,15 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class SearchResultsPage {
-    public SelenideElement getActivePage() {
+    private SelenideElement getActivePage() {
         return $(".sm-category__main-sorting_pager span.active");
     }
 
-    public SelenideElement getNextPage() {
+    private SelenideElement getNextPage() {
         return $("a[rel=next]");
     }
 
-    public ElementsCollection getProductNames() {
+    private ElementsCollection getProductNames() {
         return $$("[data-selenium=product_link]");
     }
 

@@ -30,6 +30,7 @@ public class BauerTest extends SportmasterTest {
     public void testSearch() {
         LandingPage landingPage = new LandingPage();
         landingPage.navigateTo();
+        landingPage.getSearchBar().shouldBe(visible);
         landingPage.getSearchBar().setValue(PRODUCT_NAME).pressEnter();
 
         ProductPage productPage = new ProductPage(PRODUCT_ID);
@@ -40,7 +41,7 @@ public class BauerTest extends SportmasterTest {
     public void testCatalogNavigation() {
         LandingPage landingPage = new LandingPage();
         landingPage.navigateTo();
-        landingPage.getCatalog().hover();
+        landingPage.openCatalog();
         landingPage.getCatalogCategory(CATALOG_CATEGORY).shouldBe(visible).hover();
         landingPage.getCatalogItem(CATALOG_SUBMENU_TITLE, CATALOG_SUBMENU_ITEM).shouldBe(visible).click();
 

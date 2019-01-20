@@ -16,11 +16,17 @@ public abstract class SportmasterTest {
         configureSelenide();
     }
 
-    protected void configureSelenide() {
+    private void configureSelenide() {
         Configuration.baseUrl = envProperties.getProperty("baseUrl");
         Configuration.headless = false;
         Configuration.savePageSource = false;
-    };
+        Configuration.browser = "firefox";
+
+        // Tests running with often fails with default timeouts on my machine due to performance
+        if (Configuration.remote != null) {
+            Configuration.timeout = 10000;
+        }
+    }
 
     private Properties readEnvironmetProperties() {
         Properties properties = new Properties();

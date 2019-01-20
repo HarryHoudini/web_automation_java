@@ -1,5 +1,7 @@
 package com.inadequate.awg.common;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
@@ -15,8 +17,8 @@ public class LandingPage {
         return $("[data-selenium=product_search_input]");
     }
 
-    public SelenideElement getCatalog() {
-        return $("[data-selenium=menu_catalog_link]");
+    private SelenideElement getCatalog() {
+        return $("#newMenu");
     }
 
     public SelenideElement getCatalogItem(String submenuTitle, String item) {
@@ -26,5 +28,17 @@ public class LandingPage {
 
     public SelenideElement getCatalogCategory(String catalogCategory) {
         return $(By.xpath("//span[@data-selenium='menu_catalog_itemTitle' and contains(text(),'" + catalogCategory + "')]"));
+    }
+
+    public void openCatalog() {
+        // TODO: find a good way to handle late event bindings to catalog menu
+        Selenide.sleep(20000);
+        if (this.getCatalogDropdown().is(Condition.hidden)) {
+            this.getCatalog().hover();
+        }
+    }
+
+    private SelenideElement getCatalogDropdown() {
+        return $("[data-selenium=menu_catalog_dropdown]");
     }
 }
