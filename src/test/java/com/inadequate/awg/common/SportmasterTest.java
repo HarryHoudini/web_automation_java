@@ -1,5 +1,6 @@
 package com.inadequate.awg.common;
 
+import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
@@ -7,17 +8,26 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class SportmasterTest {
-    protected String baseUrl;
+    private Properties envProperties;
 
     @BeforeClass
     protected void init() {
+        envProperties = readEnvironmetProperties();
+        configureSelenide();
+    }
+
+    protected void configureSelenide() {
+        Configuration.baseUrl = envProperties.getProperty("baseUrl");
+        Configuration.headless = false;
+        Configuration.savePageSource = false;
+    };
+
+    private Properties readEnvironmetProperties() {
         Properties properties = new Properties();
         InputStream input = null;
         try {
             input = SportmasterTest.class.getClassLoader().getResourceAsStream(getEnvironment());
             properties.load(input);
-
-            baseUrl = properties.getProperty("baseUrl");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -29,17 +39,21 @@ public abstract class SportmasterTest {
                 }
             }
         }
+        return properties;
     }
 
     private String getEnvironment() {
         String environment = System.getProperty("environment");
-        switch (environment) {
-            case "production":
-            case "dev":
-            case "qa":
-                return environment + ".properties";
-            default:
-                return "production.properties";
+        if (environment != null) {
+            switch (environment) {
+                case "production":
+                case "dev":
+                case "qa":
+                    return environment + ".properties";
+                default:
+                    return "production.properties";
+            }
         }
+        return "production.properties";
     }
 }
