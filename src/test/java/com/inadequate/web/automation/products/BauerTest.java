@@ -1,9 +1,9 @@
-package com.inadequate.awg.products;
+package com.inadequate.web.automation.products;
 
 import com.codeborne.selenide.SelenideElement;
-import com.inadequate.awg.common.LandingPage;
-import com.inadequate.awg.common.SportmasterTest;
-import com.inadequate.awg.search.SearchResultsPage;
+import com.inadequate.web.automation.common.LandingPage;
+import com.inadequate.web.automation.common.SportmasterTest;
+import com.inadequate.web.automation.search.SearchResultsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

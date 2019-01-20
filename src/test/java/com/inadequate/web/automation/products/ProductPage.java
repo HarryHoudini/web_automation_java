@@ -1,4 +1,4 @@
-package com.inadequate.awg.products;
+package com.inadequate.web.automation.products;
 
 import com.codeborne.selenide.SelenideElement;
 

@@ -1,4 +1,4 @@
-package com.inadequate.awg.search;
+package com.inadequate.web.automation.search;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;

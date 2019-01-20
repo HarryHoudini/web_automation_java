@@ -1,4 +1,4 @@
-package com.inadequate.awg.common;
+package com.inadequate.web.automation.common;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
