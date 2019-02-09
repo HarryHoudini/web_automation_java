@@ -11,8 +11,7 @@ Playground for web automation with:
 
 1. Install JDK 7+.
 1. Download [Selenoid](https://github.com/aerokube/selenoid/releases) and add executables to PATH.
-1. Get browsers mentioned in `config/browsers.json`:
-   1. `docker pull selenoid/vnc:firefox_57.0`
+1. Get browsers mentioned in `config/browsers.json`, e.g.: `docker pull selenoid/vnc:chrome_71.0`.
 
 ## Run tests
 

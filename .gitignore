@@ -11,3 +11,6 @@
 .gradle
 /build/
 !gradle-wrapper.jar
+
+reports
+video

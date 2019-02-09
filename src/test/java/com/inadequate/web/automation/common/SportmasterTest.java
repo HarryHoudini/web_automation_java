@@ -20,9 +20,10 @@ public abstract class SportmasterTest {
         Configuration.baseUrl = envProperties.getProperty("baseUrl");
         Configuration.headless = false;
         Configuration.savePageSource = false;
-        Configuration.browser = "firefox";
+        Configuration.browser = "chrome";
+        Configuration.reportsFolder = "reports";
 
-        // Tests running with often fails with default timeouts on my machine due to performance
+        // Tests running with Selenoid often fails with default timeouts on my machine due to performance
         if (Configuration.remote != null) {
             Configuration.timeout = 10000;
         }

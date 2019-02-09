@@ -17,7 +17,9 @@ tasks.withType(JavaCompile) {
 
 test {
     systemProperty 'environment', System.getProperty('environment')
-    systemProperty 'selenide.remote', System.getProperty('selenide.remote')
+    if (System.getProperty('selenide.remote')) {
+        systemProperty 'selenide.remote', System.getProperty('selenide.remote')
+    }
     useTestNG()
 }
 
