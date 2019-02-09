@@ -18,15 +18,13 @@ public abstract class SportmasterTest {
 
     private void configureSelenide() {
         Configuration.baseUrl = envProperties.getProperty("baseUrl");
-        Configuration.headless = false;
         Configuration.savePageSource = false;
         Configuration.browser = "chrome";
+        Configuration.headless = true;
         Configuration.reportsFolder = "reports";
 
-        // Tests running with Selenoid often fails with default timeouts on my machine due to performance
-        if (Configuration.remote != null) {
-            Configuration.timeout = 10000;
-        }
+        // Tests often fails with default timeout on my machine due to performance
+        Configuration.timeout = 10000;
     }
 
     private Properties readEnvironmetProperties() {

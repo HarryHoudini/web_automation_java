@@ -2,32 +2,32 @@ package com.inadequate.web.automation.search;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class SearchResultsPage {
-    private SelenideElement getActivePage() {
-        return $(".sm-category__main-sorting_pager span.active");
-    }
+    @FindBy(how = How.CSS, using = ".sm-category__main-sorting_top-page-wrap span.active")
+    private SelenideElement activePage;
 
-    private SelenideElement getNextPage() {
-        return $("a[rel=next]");
-    }
+    @FindBy(how = How.CSS, using = "a[rel=next]")
+    private SelenideElement nextPage;
 
-    private ElementsCollection getProductNames() {
-        return $$("[data-selenium=product_link]");
-    }
+    @FindBy(how = How.CSS, using = "[data-selenium=product_link]")
+    private ElementsCollection productNames;
 
     public SelenideElement findProductByName(String productName) {
-        String currentPage = this.getActivePage().text();
-        SelenideElement productLink = this.getProductNames().findBy(text(productName));
+        String currentPage = "1";
+        if (this.activePage.exists()) {
+            currentPage = this.activePage.text();
+        }
+        SelenideElement productLink = this.productNames.findBy(text(productName));
 
         if (!productLink.exists()) {
-            if (this.getNextPage().exists()) {
-                this.getNextPage().click();
-                this.getActivePage().shouldNotHave(text(currentPage));
+            if (this.nextPage.exists()) {
+                this.nextPage.click();
+                this.activePage.shouldNotHave(text(currentPage));
                 return findProductByName(productName);
             } else {
                 return null;

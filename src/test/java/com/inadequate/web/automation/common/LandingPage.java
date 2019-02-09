@@ -3,42 +3,54 @@ package com.inadequate.web.automation.common;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.inadequate.web.automation.search.SearchResultsPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 
 public class LandingPage {
-    public void navigateTo() {
-        open("/");
-    }
+    @FindBy(how = How.CSS, using = "[data-selenium=product_search_input]")
+    private SelenideElement searchBar;
 
-    public SelenideElement getSearchBar() {
-        return $("[data-selenium=product_search_input]");
-    }
+    @FindBy(how = How.ID, using = "newMenu")
+    private SelenideElement catalog;
 
-    private SelenideElement getCatalog() {
-        return $("#newMenu");
-    }
+    @FindBy(how = How.CSS, using = "[data-selenium=menu_catalog_dropdown]")
+    private SelenideElement catalogDropdown;
 
-    public SelenideElement getCatalogItem(String submenuTitle, String item) {
+    private SelenideElement getCatalogItem(String submenuTitle, String item) {
         return $(By.xpath("//a[contains(@class,'newSubmenuList__link') and contains(text(),'" +
                 submenuTitle + "')]/../following-sibling::ul[1]/li/a[contains(text(),'" + item + "')]"));
     }
 
-    public SelenideElement getCatalogCategory(String catalogCategory) {
+    private SelenideElement getCatalogCategory(String catalogCategory) {
         return $(By.xpath("//span[@data-selenium='menu_catalog_itemTitle' and contains(text(),'" + catalogCategory + "')]"));
     }
 
-    public void openCatalog() {
+    public LandingPage openCatalog() {
         // TODO: find a good way to handle late event bindings to catalog menu
         Selenide.sleep(20000);
-        if (this.getCatalogDropdown().is(Condition.hidden)) {
-            this.getCatalog().hover();
+        if (this.catalogDropdown.is(Condition.hidden)) {
+            this.catalog.hover();
         }
+        return this;
     }
 
-    private SelenideElement getCatalogDropdown() {
-        return $("[data-selenium=menu_catalog_dropdown]");
+    public LandingPage expandCatalogCategory(String catalogCategory) {
+        getCatalogCategory(catalogCategory).hover();
+        return this;
+    }
+
+    public SearchResultsPage selectCatalogItem(String catalogSubmenuTitle, String catalogSubmenuItem) {
+        getCatalogItem(catalogSubmenuTitle, catalogSubmenuItem).click();
+        return page(SearchResultsPage.class);
+    }
+
+    public SearchResultsPage searchFor(String productName) {
+        searchBar.setValue(productName).pressEnter();
+        return page(SearchResultsPage.class);
     }
 }
