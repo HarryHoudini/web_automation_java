@@ -14,7 +14,7 @@
     "versions": {
       "65.0": {
         "image": "selenoid/vnc:firefox_65.0",
-        "port": "4445",
+        "port": "4444",
         "path": "/wd/hub"
       }
     }
