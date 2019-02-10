@@ -2,6 +2,7 @@ package com.inadequate.web.automation.common;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.testng.ScreenShooter;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 
@@ -23,8 +24,14 @@ public abstract class SportmasterTest {
         Configuration.baseUrl = envProperties.getProperty("baseUrl");
         Configuration.savePageSource = false;
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.reportsFolder = "reports";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
+
         // Tests often fails with default timeout on my machine due to performance
         Configuration.timeout = 10000;
 
