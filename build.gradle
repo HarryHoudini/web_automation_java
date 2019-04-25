@@ -23,7 +23,12 @@ test {
     useTestNG()
 }
 
+ext {
+    testngVersion = '6.10'
+    selenideVersion = '5.1.0'
+}
+
 dependencies {
-    testCompile group: 'org.testng', name: 'testng', version: '6.10'
-    testCompile 'com.codeborne:selenide:5.1.0'
+    testCompile group: 'org.testng', name: 'testng', version: "$testngVersion"
+    testCompile "com.codeborne:selenide:$selenideVersion"
 }
